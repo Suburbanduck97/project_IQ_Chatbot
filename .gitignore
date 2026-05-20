@@ -1,0 +1,8 @@
+.vscode/
+.env
+venv/
+.venv/
+env/
+
+nova_gemini.py
+teste.py
