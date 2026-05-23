@@ -36,7 +36,8 @@ def consultar_preco_cripto(nome_cripto: str) -> dict:
 
 modelo = investIQ_gen.GenerativeModel(
     model_name='gemini-2.5-flash',
-    tools=[consultar_preco_cripto]
+    tools=[consultar_preco_cripto],
+    system_instruction= os.getenv('INSTRUCTION')
 )
 
 # Iniciamos o chat 
