@@ -33,9 +33,15 @@ def consultar_preco_cripto(nome_cripto: str) -> dict:
     
     except Exception as e:
         return {'erro': f'Falha na comunicação com a API: {e}'}
+    
+def salvar_historico(pergunta, resposta):
+    data_hora = data_hora.datetime.now().strftime('%d/%m/%Y %H:%M:%S')
+    with open ('historico_chat', 'a', encoding='utf-8') as arq:
+        arq.write(f'[{data_hora}] Usuário: {pergunta}\n')
+        arq.write(f'[{data_hora}] InvestIQ: {resposta}\n\n')
 
 modelo = investIQ_gen.GenerativeModel(
-    model_name='gemini-2.5-flash',
+    model_name='gemini-1.5-flash',
     tools=[consultar_preco_cripto],
     system_instruction= os.getenv('INSTRUCTION')
 )
@@ -57,3 +63,5 @@ while True:
     # enviamos e recebemos a mensagem da generativa
     response_api = chatIQ.send_message(user_question)
     print(f'\nInvestIQ: {response_api.text}')
+
+    salvar_historico(user_question, response_api.text)
