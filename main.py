@@ -11,6 +11,13 @@ investIQ_gen.configure(api_key=GOOGLE_API)
 
 # define uma saida dicionário obrigatória
 def consultar_preco_cripto(nome_cripto: str) -> dict:
+    # Boloco de docstring = diz a generativa como e o porquê ela deve usar essa função
+    """
+    Busca o preço atual de uma criptomoeda em Reais (BRL).
+    Use esta função sempre que o usuário perguntar o valor ou a cotação de uma criptomoeda.
+    Args:
+        nome_cripto: O nome da criptomoeda em minúsculo e sem espaços (ex: 'bitcoin', 'ethereum', 'solana').
+    """
     url = api_IQ.replace('{nome_cripto}', nome_cripto)
     try:
         response = requests.get(url)
@@ -40,7 +47,7 @@ print('===== Bem vindo ======')
 while True:
     user_question = input('\nPergunte ao InvestIQ: ')
 
-    if user_question.lower() in ['sair', 'encerar']:
+    if user_question.lower() in ['sair', 'encerrar']:
         print('InvestIQ: Até logo e bons investimentos conciente!')
         break
 

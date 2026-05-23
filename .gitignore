@@ -3,6 +3,9 @@
 venv/
 .venv/
 env/
-
+.trash
+trash/
+.trash/
 nova_gemini.py
 teste.py
+.text
