@@ -1,5 +1,6 @@
 from dotenv import load_dotenv
 import google.generativeai as investIQ_gen # Importando a IA genarativa do Gemini
+import datetime as dt
 import requests
 import os
 
@@ -33,15 +34,15 @@ def consultar_preco_cripto(nome_cripto: str) -> dict:
     
     except Exception as e:
         return {'erro': f'Falha na comunicação com a API: {e}'}
-    
+      
 def salvar_historico(pergunta, resposta):
-    data_hora = data_hora.datetime.now().strftime('%d/%m/%Y %H:%M:%S')
-    with open ('historico_chat', 'a', encoding='utf-8') as arq:
+    data_hora = dt.datetime.today().strftime('%d/%m/%Y %H:%M:%S')
+    with open ('historico_chat.txt', 'a', encoding='utf-8') as arq:
         arq.write(f'[{data_hora}] Usuário: {pergunta}\n')
         arq.write(f'[{data_hora}] InvestIQ: {resposta}\n\n')
 
 modelo = investIQ_gen.GenerativeModel(
-    model_name='gemini-1.5-flash',
+    model_name='gemini-2.5-flash',
     tools=[consultar_preco_cripto],
     system_instruction= os.getenv('INSTRUCTION')
 )
@@ -49,6 +50,7 @@ modelo = investIQ_gen.GenerativeModel(
 # Iniciamos o chat 
 chatIQ = modelo.start_chat(enable_automatic_function_calling=True) # precisamos entender melhor
 
+os.system('cls || clear')
 print('===== Bem vindo ======')
 
 while True:
