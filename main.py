@@ -48,7 +48,7 @@ modelo = investIQ_gen.GenerativeModel(
 )
 
 # Iniciamos o chat 
-chatIQ = modelo.start_chat(enable_automatic_function_calling=True) # precisamos entender melhor
+chatIQ = modelo.start_chat(enable_automatic_function_calling=True) 
 
 os.system('cls || clear')
 print('===== Bem vindo ======')
